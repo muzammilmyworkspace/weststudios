@@ -1,0 +1,56 @@
+{
+  "available_originals": 10,
+  "reported_uploads": 11,
+  "assets": [
+    {
+      "file": "11A6D166-9B03-4DB6-A5EB-FD3ABFBCD288.png",
+      "bytes": 2779866,
+      "sha256": "96385825e6b90ed65279aa4a06f4673c5ac545f5b643bba4259378b448c7801c"
+    },
+    {
+      "file": "25565DAF-BC46-470B-A703-35FC83AB9281.png",
+      "bytes": 2624001,
+      "sha256": "3c88cf0d448e2b944fab61a07a6bdb71e02f4a5f869523fd47e0f4c64d706b26"
+    },
+    {
+      "file": "49544CDE-4254-4A9D-A780-45257FF0E03F.png",
+      "bytes": 2120216,
+      "sha256": "6fa6f26dddb232b208f4c1c08d0efa62c3a3f726c2e0563ffd15d4959cda0592"
+    },
+    {
+      "file": "758253DB-6637-4015-A2E4-05B4ABBC0D4F.png",
+      "bytes": 2444601,
+      "sha256": "d6b7a9ef6e0a3aea2c66b405a5a9701bc6088eddaedc59bf0472a7e57d66226c"
+    },
+    {
+      "file": "7B17AD55-E8B2-40B3-B9F1-63859E4E2B3A.png",
+      "bytes": 2204431,
+      "sha256": "bae408e5e9321e0c9abedd1c6c2f03655bd4eb802b9df0bcca2afa426146e6be"
+    },
+    {
+      "file": "9919CCE7-F18B-48D1-B690-19A072B86201.png",
+      "bytes": 2119914,
+      "sha256": "6a969259e606608db6c60b114106395e808ad8af890e95411e817a34d194e9e0"
+    },
+    {
+      "file": "9D1632EE-C120-4845-9418-469F92A1FB0F.png",
+      "bytes": 2434245,
+      "sha256": "5957f8c02d0cf740e95d23c98cc74e23f77ed51052b24b66178e172164cb8d7e"
+    },
+    {
+      "file": "E4FACA95-0C80-4239-A72B-28A7853B62BB.png",
+      "bytes": 2642719,
+      "sha256": "547eb4d5f35fa36317b4866afd7d5a7e12a55d4ff2ebaacbbaf47f696f1de675"
+    },
+    {
+      "file": "Westside (2).png",
+      "bytes": 46214,
+      "sha256": "c84ea6bd89d204661885a21ceaaf4e7da81222969ba7a5d78d24ca1174fc5ef7"
+    },
+    {
+      "file": "Westside.png",
+      "bytes": 41362,
+      "sha256": "4e0172a9ab9b6c1059a499c018570cac929b59b5dc8b0fdeecb1a943946eae7a"
+    }
+  ]
+}
