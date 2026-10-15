@@ -152,12 +152,62 @@
     setTimeout(tick, 400);
   }
 
+
+  // ---- the doorways themselves: projected labels + click to enter ----
+  const DOORS = { portfolio: -1, services: 1 };
+  const tags = {};
+  Object.keys(DOORS).forEach((name) => {
+    const el = document.createElement('button');
+    el.className = 'door-tag'; el.dataset.wing = name;
+    el.innerHTML = DOORS[name] < 0 ? '<i>←</i><span><small>Enter</small>Portfolio</span>' : '<span><small>Enter</small>Services</span><i>→</i>';
+    el.addEventListener('click', (e) => { e.stopPropagation(); enter(name); });
+    document.body.appendChild(el); tags[name] = el;
+  });
+  function viewProj(p) {
+    const c = M.sample(p), a = innerWidth / innerHeight;
+    return M.mul(M.perspective(M.fov(a), a), M.lookAt(c.eye, c.target));
+  }
+  function project(vp, pt) {
+    const v = M.transform(vp, [...pt, 1]);
+    if (v[3] <= 0.1) return null;
+    return [(v[0] / v[3] + 1) / 2 * innerWidth, (1 - v[1] / v[3]) / 2 * innerHeight];
+  }
+  const doorRects = {};
+  function doorLabels(st, show) {
+    const vp = show ? viewProj(st.current) : null;
+    for (const [name, s] of Object.entries(DOORS)) {
+      const el = tags[name];
+      let rect = null;
+      if (vp) {
+        const pts = [[s * 9.3, 0, -70.5], [s * 9.3, 0, -79.5], [s * 9.3, 7.5, -70.5], [s * 9.3, 7.5, -79.5]].map((q) => project(vp, q));
+        if (pts.every(Boolean)) {
+          const xs = pts.map((q) => q[0]), ys = pts.map((q) => q[1]);
+          rect = [Math.min(...xs), Math.min(...ys), Math.max(...xs), Math.max(...ys)];
+          if (rect[2] < 0 || rect[0] > innerWidth || rect[2] - rect[0] < 24) rect = null;
+        }
+      }
+      doorRects[name] = rect;
+      const top = rect && project(vp, [s * 9.3, 6.2, -75]);
+      const visible = !!(top && top[0] > 70 && top[0] < innerWidth - 70);
+      el.classList.toggle('on', visible);
+      if (visible) {
+        const x = Math.min(innerWidth - 90, Math.max(90, top[0])), y = Math.min(innerHeight - 160, Math.max(110, top[1]));
+        el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, -50%)`;
+      }
+    }
+  }
+  const canvas = document.getElementById('world');
+  const hitDoor = (x, y) => Object.keys(doorRects).find((k) => { const r = doorRects[k]; return r && x >= r[0] && x <= r[2] && y >= r[1] && y <= r[3]; });
+  addEventListener('pointermove', (e) => { if (wing) return; canvas && (canvas.style.cursor = e.target === canvas && hitDoor(e.clientX, e.clientY) ? 'pointer' : ''); }, { passive: true });
+  addEventListener('click', (e) => { if (wing || e.target !== canvas) return; const d = hitDoor(e.clientX, e.clientY); if (d) enter(d); });
+
   // ---- HUD: gallery doors, wing label ----
   function hud() {
     requestAnimationFrame(hud);
     const st = state();
     if (!st) return;
-    const inGallery = !wing && st.phase === 'explore' && st.chapter === 'work' && !$$('dialog').some((d) => d.open);
+    const inGallery = !wing && st.phase === 'explore' && st.current > 0.375 && st.current < 0.6 && !$$('dialog').some((d) => d.open) && !root.classList.contains('peek');
+    doorLabels(st, inGallery);
     root.classList.toggle('in-gallery', inGallery);
     if (wing) {
       const lab = $('#chapter-label');

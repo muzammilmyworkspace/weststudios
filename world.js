@@ -19,9 +19,9 @@ for(let x=12;x<64;x+=6){stone.cube(s*x,7.6,Z,.7,.8,12);red.cube(s*x,7.18,Z,.035,
 red.cube(s*9.05,3.75,-70.5,.06,7.5,.06);red.cube(s*9.05,3.75,-79.5,.06,7.5,.06);red.cube(s*9.05,7.5,Z,.06,.06,9)
 light.plane([s*65.9,4,Z],9,6,-s*Math.PI/2)
 for(const it of W[name].items){const n=[Math.sin(it.yaw),0,Math.cos(it.yaw)],r=[Math.cos(it.yaw),0,-Math.sin(it.yaw)],a=[it.x,3.1,it.z],ww=5.6,hh=3.5
-const back=new Builder();back.plane(a,ww+.3,hh+.3,it.yaw);this.mesh(back,{color:[.13,.13,.14]})
+metal.plane(a,ww+.3,hh+.3,it.yaw)
 const scr=new Builder();scr.plane(a.map((v,i)=>v+n[i]*.025),ww,hh,it.yaw);this.mesh(scr,{texture:this.texture(it.tex),emission:0})
-const ol=new Builder();for(const y of[-hh/2,hh/2])ol.plane(a.map((v,i)=>v+(i===1?y:0)+n[i]*.04),ww,.025,it.yaw);for(const x of[-ww/2,ww/2])ol.plane(a.map((v,i)=>v+r[i]*x+n[i]*.04),.025,hh,it.yaw);this.mesh(ol,{color:[.65,.002,.04],emission:1})
+for(const y of[-hh/2,hh/2])red.plane(a.map((v,i)=>v+(i===1?y:0)+n[i]*.04),ww,.025,it.yaw);for(const x of[-ww/2,ww/2])red.plane(a.map((v,i)=>v+r[i]*x+n[i]*.04),.025,hh,it.yaw)
 light.plane(a.map((v,i)=>v+n[i]*1.2+(i===1?2.4:0)),ww,.6,it.yaw)}}}
 // Lab pedestals and configurable physical service objects.
 for(let i=0;i<7;i++){const z=-43-i*2.1;stone.cube(-6.5,.45,z,1.3,.9,1.25);const b=new Builder();b.cube(-6.5,1.7,z,1,.7,.09);b.cube(-6.5,1.25,z,.06,.55,.06);this.mesh(b,{color:[.18,.18,.2],service:i});}const browser=new Builder();browser.cube(2.6,2.8,-50,3,1.9,.13);red.cube(2.6,3.76,-49.9,3,.025,.05);for(let i=0;i<3;i++)red.cube(1.6+i*.22,3.5,-49.9,.07,.07,.04);this.mesh(browser,{color:[.15,.15,.17],demo:true});

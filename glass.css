@@ -1,6 +1,6 @@
 /* Glass cards: the architecture stays visible behind every installation */
-.world-panel.card,.ex{background:linear-gradient(135deg,#0a0a0cb8,#12060ca6)!important;-webkit-backdrop-filter:blur(14px) saturate(1.2);backdrop-filter:blur(14px) saturate(1.2);border-color:#ffffff24!important}
-.contact-panel{background:linear-gradient(130deg,#0b0b0dc4,#120307b0)!important;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.world-panel.card,.ex{background:linear-gradient(135deg,#0a0a0cd6,#12060cc7)!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;border-color:#ffffff24!important}
+.contact-panel{background:linear-gradient(130deg,#0b0b0de0,#120307cc)!important}
 .ex-placard,.pillars li,.principles li,.nw,#services .service-demonstration{background:#0000002e}
 .world-panel{transition:opacity .45s ease}
 .peek .world-panel{opacity:0!important;pointer-events:none!important}
@@ -8,3 +8,9 @@
 #peek{display:inline-flex;align-items:center;gap:8px;height:44px;padding:0 16px!important;margin-left:8px;border:1px solid #ffffff38!important;border-radius:999px;background:#0808099e!important;color:#f3eee6;font:500 12px var(--mono,monospace);letter-spacing:.12em;text-transform:uppercase;cursor:pointer;transition:background .3s,color .3s}
 #peek:hover,#peek[aria-pressed=true]{background:#ff2a55!important;border-color:#ff2a55!important;color:#fff}
 @media (max-width:900px){#peek span{display:none}#peek{padding:0 13px!important}}
+
+/* performance: inactive installations leave the compositor entirely */
+.world-panel:not(.is-active){visibility:hidden}
+.world-panel *{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+/* no live blur over the WebGL canvas anywhere: it costs a full re-blur every frame */
+*{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
