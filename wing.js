@@ -11,8 +11,8 @@
   const cam = (eye, target) => ({ eye: eye.slice(), target: target.slice() });
   const stops = (name) => {
     const w = D[name], s = w.side;
-    const list = w.items.map((it, i) => ({ id: it.id, ...cam([s * (15 + 6 * i), 1.8, Z], [s * (15 + 6 * i), 3.0, i % 2 ? -69 : -81]) }));
-    list.push({ id: w.end.id, ...cam([s * 57, 1.8, Z], [s * 66, 3.1, Z]) });
+    const list = w.items.map((it) => ({ id: it.id, ...cam([it.x, 1.8, -82.6], [it.x, 3.1, -89]) }));
+    list.push({ id: w.end.id, ...cam([w.end.x, 1.8, -82.6], [w.end.x, 3.1, -89]) });
     return list;
   };
   const lerp = (a, b, f) => a.map((v, i) => v + (b[i] - v) * f);
@@ -32,7 +32,7 @@
     wing = name; side = D[name].side; mainP = st.current; exiting = false;
     const c = M.sample(mainP);
     const S = stops(name);
-    K = [cam(c.eye, c.target), cam([0, 1.8, Z], [side * 20, 2.8, Z]), cam([side * 9.6, 1.8, Z], [side * 30, 2.8, Z]), ...S];
+    K = [cam(c.eye, c.target), cam([0, 1.8, Z], [side * 20, 2.6, -78]), cam([side * 9.6, 1.8, -76], [side * 24, 2.8, -86]), ...S];
     P = ['', '', '', ...S.map((s) => s.id)];
     first = 3; t = 0; tt = first;
     lockScroll(true);
@@ -44,8 +44,8 @@
     if (instant) { finish(); return; }
     if (exiting) return;
     const back = M.sample(mainP), cur = now();
-    K = [cur, cam([side * 9.6, 1.8, Z], [0, 2.6, Z]), cam([0, 1.8, Z], back.target), cam(back.eye, back.target)];
-    P = ['', '', '', '']; t = 0; tt = 3; exiting = true;
+    K = [cur, cam([side * 12, 1.8, -78], [0, 2.6, -75]), cam([side * 9.6, 1.8, -76], [0, 2.6, Z]), cam([0, 1.8, Z], back.target), cam(back.eye, back.target)];
+    P = ['', '', '', '', '']; t = 0; tt = 4; exiting = true;
   }
   function finish() {
     wing = null; exiting = false;
@@ -66,11 +66,11 @@
     moving: () => !!wing && Math.abs(tt - t) > 0.003,
     panel: () => {
       if (exiting) return '';
-      const i = Math.abs(tt - t) < 0.5 ? tt : Math.round(t);
+      const i = Math.round(t);
       return P[i] || '';
     },
     camera(dt) {
-      const d = tt - t, sp = Math.max(Math.abs(d) * 2.3, 0.5) * dt;
+      const d = tt - t, sp = Math.max(Math.abs(d) * 1.6, 0.35) * dt;
       t += Math.sign(d) * Math.min(Math.abs(d), sp);
       if (exiting && Math.abs(tt - t) < 0.002) { const c = now(); finish(); return c; }
       return now();
@@ -79,12 +79,15 @@
   };
 
   // ---- input while inside a wing ----
+  let snapTimer = 0;
   addEventListener('wheel', (e) => {
     if (!wing) return;
     e.preventDefault();
-    wheelAcc += e.deltaY + e.deltaX;
-    if (Math.abs(wheelAcc) > 70 && performance.now() - lastStep > 700) { step(Math.sign(wheelAcc)); wheelAcc = 0; }
-    clearTimeout(window.__wingWheel); window.__wingWheel = setTimeout(() => (wheelAcc = 0), 220);
+    if (exiting) return;
+    const d = (e.deltaY + e.deltaX) * (e.deltaMode === 1 ? 0.06 : 0.0022);
+    tt = Math.min(K.length - 1, Math.max(first - 0.4, tt + d));
+    clearTimeout(snapTimer);
+    snapTimer = setTimeout(() => { if (!wing || exiting) return; if (tt < first - 0.3) { exit(); return; } tt = Math.max(first, Math.round(tt)); }, 420);
   }, { passive: false });
   let touchY = null, touchX = null;
   addEventListener('touchstart', (e) => { if (!wing) return; touchY = e.touches[0].clientY; touchX = e.touches[0].clientX; }, { passive: true });
@@ -212,7 +215,7 @@
     if (wing) {
       const lab = $('#chapter-label');
       if (lab && lab.textContent !== LABEL[wing]) lab.textContent = LABEL[wing];
-      const i = Math.max(0, Math.round(tt) - first), n = K.length - first;
+      const i = Math.max(0, Math.round(t) - first), n = K.length - first;
       const txt = exiting ? 'Returning to the gallery' : i >= n - 1 ? 'End of the wing' : `${wing === 'portfolio' ? 'Project' : 'Service'} ${String(i + 1).padStart(2, '0')} / ${String(n - 1).padStart(2, '0')}`;
       const h = $('.wing-hud-label');
       if (h.textContent !== txt) h.textContent = txt;

@@ -1,7 +1,7 @@
 /* Journey rail: replaces the native scrollbar with a chapter-aware progress rail. */
 (function () {
   const $ = (s, r = document) => r.querySelector(s);
-  const STOPS = [['home', .18, 'Arrival'], ['services', .34, 'The Lab'], ['work', .455, 'Gallery'], ['numbers', .625, 'Experience'], ['about', .77, 'Studio'], ['team', .885, 'Boardroom'], ['contact', .985, 'Contact']];
+  const STOPS = [['home', .18, 'Arrival'], ['services', .34, 'Who we are'], ['work', .455, 'Gallery'], ['numbers', .625, 'Client stories'], ['about', .77, 'FAQ'], ['team', .885, 'Founders'], ['contact', .985, 'Contact']];
   const rail = document.createElement('nav');
   rail.className = 'rail'; rail.setAttribute('aria-label', 'Journey progress');
   rail.innerHTML = `<div class="rail-track"><i class="rail-fill"></i>${STOPS.map(([k, p, n], i) => `<button class="rail-stop" data-k="${k}" style="--p:${p}" aria-label="Go to ${n}"><b>${String(i + 1).padStart(2, '0')}</b><span>${n}</span></button>`).join('')}<span class="rail-thumb"><img src="assets/originals/Westside%20(2).png" alt=""></span></div><span class="rail-pct">00%</span>`;
