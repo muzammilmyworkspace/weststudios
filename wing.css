@@ -58,3 +58,7 @@
   .wing-back{height:40px;padding:0 16px;font-size:13px;white-space:nowrap}
   .wing-hud-label{display:none}
 }
+.menu-dialog nav button{padding:10px 0!important}
+.menu-dialog nav button span{font-size:clamp(26px,3.4vw,50px)!important}
+.menu-dialog nav .wing-link span{color:#ff2a55}
+.menu-dialog{overflow-y:auto}

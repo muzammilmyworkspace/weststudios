@@ -109,9 +109,18 @@
   document.addEventListener('click', (e) => {
     const el = e.target.closest ? e.target : null;
     if (!el) return;
-    const go = el.closest('.wing-go, .wing-switch');
+    const go = el.closest('.wing-go, .wing-switch, .wing-link');
     if (go) {
       e.preventDefault(); e.stopImmediatePropagation();
+      if (go.classList.contains('from-menu')) {
+        $$('dialog').forEach((d) => d.open && d.close());
+        if (wing) exit(true);
+        const st = state();
+        const there = st && st.phase === 'explore' && st.chapter === 'work' && Math.abs(st.current - st.target) < 0.002;
+        if (there) enter(go.dataset.wing);
+        else { window.WestsideExperience.jump('work'); waitThen(() => enter(go.dataset.wing)); }
+        return;
+      }
       if (wing) { exit(true); setTimeout(() => enter(go.dataset.wing), 30); } else enter(go.dataset.wing);
       return;
     }
@@ -131,6 +140,17 @@
     }
     if (el.closest('[data-jump]')) exit(true);
   }, true);
+
+  // wait until the camera has arrived in the gallery, then run fn
+  function waitThen(fn) {
+    const t0 = performance.now();
+    const tick = () => {
+      const st = state();
+      if (st && st.phase === 'explore' && st.chapter === 'work' && Math.abs(st.current - st.target) < 0.002) return fn();
+      if (performance.now() - t0 < 8000) requestAnimationFrame(tick);
+    };
+    setTimeout(tick, 400);
+  }
 
   // ---- HUD: gallery doors, wing label ----
   function hud() {
