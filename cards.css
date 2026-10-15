@@ -1,0 +1,109 @@
+/* ==========================================================================
+   Chapter cards: one consistent, screen-facing card system for every
+   installation (hero, lab, experience, numbers, studio, boardroom).
+   ========================================================================== */
+.world-panel.card{width:1240px!important;min-height:0!important;padding:52px 56px!important;border:1px solid #ffffff17!important;border-radius:30px!important;background:linear-gradient(135deg,#0b0b0df7,#10060af2)!important;box-shadow:0 60px 160px -50px #000,0 0 0 1px #ffffff08,0 30px 120px -70px #ff2a55!important;overflow:hidden!important;text-align:left}
+.world-panel.card:before{content:'';position:absolute;inset:0;background:radial-gradient(55% 80% at 100% 0%,#ff2a5524,transparent 60%),radial-gradient(40% 60% at 0% 100%,#ff2a5512,transparent 60%);pointer-events:none}
+.world-panel.card>*{position:relative}
+.card .cd-grid{display:grid;gap:56px;align-items:center}
+.card .cd-top{display:flex;align-items:center;gap:16px;margin:0 0 22px!important}
+.card .cd-top .eyebrow{margin:0!important}
+.cd-tag{padding:6px 12px;border-radius:999px;border:1px solid #ffffff24;font:500 11px var(--mono,monospace);letter-spacing:.14em;text-transform:uppercase;color:#cfc8c0}
+.card h2{font-size:clamp(56px,4.8vw,82px)!important;margin:0!important;text-transform:uppercase}
+.card h2 em{font-style:normal;color:var(--red,#ff2a55)}
+.card h3{text-transform:none}
+.cd-lede{margin:24px 0 0!important;max-width:520px;font:400 19px/1.5 var(--text,sans-serif)!important;color:#d9d3cb!important}
+.cd-body{margin:14px 0 0!important;max-width:520px;font:400 16px/1.55 var(--text,sans-serif)!important;color:#a9a3a0!important}
+
+/* numbered list used by hero pillars and studio principles */
+.pillars,.principles{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+.pillars li,.principles li{display:grid;grid-template-columns:44px 1fr;gap:16px;align-items:start;padding:22px 24px;border-radius:20px;background:#ffffff07;border:1px solid #ffffff14;transition:background .4s,border-color .4s,transform .6s cubic-bezier(.16,1,.3,1)}
+.pillars li:hover,.principles li:hover{background:#ff2a5512;border-color:#ff2a5555;transform:translateX(-4px)}
+.pillars b,.principles b{font:500 13px var(--mono,monospace);letter-spacing:.12em;color:var(--red,#ff2a55);padding-top:4px}
+.pillars h3,.principles h3{margin:0!important;font-size:22px!important;font-weight:700!important;letter-spacing:-.02em!important;line-height:1.15!important}
+.pillars p,.principles p{margin:6px 0 0!important;font:400 15px/1.5 var(--text,sans-serif)!important;color:#a9a3a0!important}
+
+/* ---------- hero ---------- */
+.hero-grid{grid-template-columns:1.25fr .9fr}
+#hero .arrival-line{margin:0 0 18px!important;font:500 14px var(--mono,monospace)!important;letter-spacing:.18em!important;text-transform:uppercase;color:#cfc8c0!important;opacity:1}
+#hero h2{font-size:clamp(54px,4.6vw,78px)!important}
+#hero h2 em{display:inline}
+#hero .panel-actions{margin-top:34px!important}
+
+/* ---------- services ---------- */
+.svc-grid{grid-template-columns:1fr 1fr;align-items:start!important}
+#services .service-selectors{margin-top:28px;display:grid;gap:0;border-top:1px solid #ffffff1c}
+#services .service-selectors button{display:grid!important;grid-template-columns:40px 1fr 24px;align-items:center;gap:8px;width:100%;padding:15px 6px!important;border:0!important;border-bottom:1px solid #ffffff1c!important;background:none!important;text-align:left;color:#cfc8c0!important;cursor:pointer;transition:background .3s,color .3s,padding .4s cubic-bezier(.16,1,.3,1)}
+#services .service-selectors button b{font:500 12px var(--mono,monospace);letter-spacing:.12em;color:#7d7774}
+#services .service-selectors button span{font:600 18px var(--text,sans-serif)!important;letter-spacing:-.01em!important;text-transform:none!important}
+#services .service-selectors button i{font-style:normal;opacity:0;transform:translateX(-6px);transition:opacity .3s,transform .4s}
+#services .service-selectors button:hover{color:#fff!important;padding-left:12px!important}
+#services .service-selectors button[aria-pressed=true]{color:#fff!important;background:linear-gradient(90deg,#ff2a551f,transparent)!important;padding-left:14px!important}
+#services .service-selectors button[aria-pressed=true] b{color:var(--red,#ff2a55)}
+#services .service-selectors button[aria-pressed=true] i,#services .service-selectors button:hover i{opacity:1;transform:none;color:var(--red,#ff2a55)}
+#services .service-demonstration{padding:30px;border-radius:24px;background:#ffffff07;border:1px solid #ffffff14}
+#services .demo-object{margin:0 0 26px!important;transform:none!important;max-width:100%}
+#services #service-title{margin:0!important;font-size:34px!important;font-weight:800!important;letter-spacing:-.03em!important;line-height:1.05!important}
+#services #service-description{margin:14px 0 0!important}
+#services #service-tags{display:block;margin:18px 0 26px!important}
+
+/* ---------- experience ---------- */
+.exp-grid{grid-template-columns:1.15fr .85fr}
+.exp-figure{position:relative;display:grid;place-items:center;text-align:center;aspect-ratio:1;max-width:420px;width:100%;justify-self:center}
+.exp-ring{position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 210deg,#ff2a55,#ff2a5500 70%);-webkit-mask:radial-gradient(farthest-side,#0000 calc(100% - 3px),#000 calc(100% - 2px));mask:radial-gradient(farthest-side,#0000 calc(100% - 3px),#000 calc(100% - 2px));animation:expspin 9s linear infinite}
+.exp-figure:before{content:'';position:absolute;inset:12%;border-radius:50%;border:1px dashed #ffffff22}
+@keyframes expspin{to{transform:rotate(360deg)}}
+.exp-figure strong{display:block;font:900 220px/0.8 var(--display,sans-serif)!important;letter-spacing:-.06em;color:var(--red,#ff2a55);text-shadow:0 20px 80px #ff2a5566}
+.exp-figure p{margin:6px 0 0!important;font:700 22px/1.15 var(--text,sans-serif)!important;letter-spacing:-.02em!important;color:#f3eee6!important;text-transform:none!important}
+.exp-figure small{margin-top:10px;font:500 11px var(--mono,monospace);letter-spacing:.14em;text-transform:uppercase;color:#a9a3a0}
+.exp-figure>*{position:relative}
+
+/* ---------- numbers ---------- */
+#numbers-b h2{font-size:clamp(50px,4.2vw,72px)!important}
+#numbers-b .number-wall{display:grid!important;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:38px}
+.nw{padding:26px 24px;border-radius:22px;background:#ffffff07;border:1px solid #ffffff14;transition:border-color .4s,background .4s,transform .6s cubic-bezier(.16,1,.3,1)}
+.nw:hover{border-color:#ff2a5566;background:#ff2a5510;transform:translateY(-4px)}
+.nw strong{display:block;font:900 84px/0.9 var(--display,sans-serif)!important;letter-spacing:-.05em;color:var(--red,#ff2a55)}
+.nw span{display:block;margin-top:14px;font:600 17px/1.25 var(--text,sans-serif)!important;letter-spacing:-.01em!important;text-transform:none!important;color:#f3eee6}
+.nw p{margin:10px 0 0!important;font:400 14px/1.5 var(--text,sans-serif)!important;color:#a9a3a0!important}
+
+/* ---------- about ---------- */
+.about-grid{grid-template-columns:1.1fr 1fr}
+
+/* ---------- team ---------- */
+#team .founder-installations{display:grid!important;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
+#team .founder-installations button{display:grid!important;grid-template-columns:auto 1fr auto;align-items:center;gap:22px;padding:22px 24px!important;border-radius:22px!important;border:1px solid #ffffff1c!important;background:#ffffff07!important;text-align:left;cursor:pointer;transition:border-color .4s,background .4s,transform .6s cubic-bezier(.16,1,.3,1)}
+#team .founder-installations button:hover{transform:translateY(-3px);border-color:#ffffff40!important}
+#team .founder-installations button[aria-pressed=true]{border-color:#ff2a55aa!important;background:linear-gradient(120deg,#ff2a5520,#ff2a5506)!important}
+.fd-mark{position:relative;display:grid;place-items:center;width:84px;height:84px;border-radius:22px;background:#140509;border:1px solid #ff2a5540;overflow:hidden}
+.fd-mark img{position:absolute;width:70%!important;height:auto!important;opacity:.22;margin:0!important}
+.fd-mark i{position:relative;font:800 28px var(--display,sans-serif);font-style:normal;letter-spacing:-.04em;color:#f3eee6}
+.fd-txt h3{margin:0!important;font-size:26px!important;font-weight:800!important;letter-spacing:-.03em!important}
+.fd-txt p{margin:4px 0 0!important;font:500 12px var(--mono,monospace)!important;letter-spacing:.14em!important;text-transform:uppercase;color:#a9a3a0!important}
+.fd-go{font-style:normal;font-size:22px;color:#7d7774;transition:transform .4s,color .3s}
+#team button[aria-pressed=true] .fd-go{color:var(--red,#ff2a55);transform:translateX(4px)}
+#team #founder-description{margin:22px 0 0!important;padding:18px 22px;border-left:2px solid var(--red,#ff2a55);background:#ffffff06;border-radius:0 14px 14px 0;font:400 17px/1.5 var(--text,sans-serif)!important;color:#d9d3cb!important}
+
+/* ---------- entrance for every card (reuses gallery's .lit timing) ---------- */
+.world-panel.card.is-active>*{animation:cdin .9s cubic-bezier(.16,1,.3,1) both}
+.world-panel.card.is-active>*:nth-child(2){animation-delay:.08s}.world-panel.card.is-active>*:nth-child(3){animation-delay:.16s}.world-panel.card.is-active>*:nth-child(4){animation-delay:.24s}
+@keyframes cdin{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+
+/* ---------- small screens / reading view ---------- */
+@media (max-width:900px){
+  .world-panel.card{width:auto!important;padding:26px 22px!important;border-radius:22px!important}
+  .card .cd-grid{grid-template-columns:1fr!important;gap:26px}
+  .card h2,#hero h2,#numbers-b h2{font-size:42px!important}
+  .cd-lede{font-size:16px!important}
+  .pillars li,.principles li{padding:16px 18px}
+  .pillars h3,.principles h3{font-size:18px!important}
+  #numbers-b .number-wall{grid-template-columns:1fr 1fr}
+  .nw strong{font-size:56px!important}
+  .exp-figure{max-width:260px}
+  .exp-figure strong{font-size:140px!important}
+  #team .founder-installations{grid-template-columns:1fr}
+  .fd-mark{width:64px;height:64px}
+  #services .service-demonstration{padding:22px}
+}
+@media (prefers-reduced-motion:reduce){.exp-ring,.world-panel.card.is-active>*{animation:none}}
+#numbers-b .nw span{font-family:var(--text)!important;letter-spacing:-.01em!important;font-size:17px!important}
