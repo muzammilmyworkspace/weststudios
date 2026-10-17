@@ -9,10 +9,13 @@
 
   const state = () => (window.WestsideExperience ? window.WestsideExperience.getState() : null);
   const cam = (eye, target) => ({ eye: eye.slice(), target: target.slice() });
+  const flow = () => root.classList.contains('m-flow');
+  // Phones (portrait): stand further back and look a little low, so the whole exhibit sits above the info sheet.
+  const view = (x) => (flow() ? cam([x, 2.2, -77.5], [x, 0.4, -89]) : cam([x, 1.8, -82.6], [x, 3.1, -89]));
   const stops = (name) => {
-    const w = D[name], s = w.side;
-    const list = w.items.map((it) => ({ id: it.id, ...cam([it.x, 1.8, -82.6], [it.x, 3.1, -89]) }));
-    list.push({ id: w.end.id, ...cam([w.end.x, 1.8, -82.6], [w.end.x, 3.1, -89]) });
+    const w = D[name];
+    const list = w.items.map((it) => ({ id: it.id, ...view(it.x) }));
+    list.push({ id: w.end.id, ...view(w.end.x) });
     return list;
   };
   const lerp = (a, b, f) => a.map((v, i) => v + (b[i] - v) * f);
@@ -27,13 +30,13 @@
   }
 
   function enter(name) {
-    if (root.classList.contains('m-flow')) { const rail = document.getElementById('m-' + name); if (rail) rail.scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
     const st = state();
     if (!st || st.phase !== 'explore' || wing || !D[name]) return;
-    wing = name; side = D[name].side; mainP = st.current; exiting = false;
+    wing = name; side = D[name].side; mainP = flow() ? 0.455 : st.current; exiting = false;
+    if (flow()) root.classList.add('m-gallery');
     const c = M.sample(mainP);
     const S = stops(name);
-    K = [cam(c.eye, c.target), cam([0, 1.8, Z], [side * 20, 2.6, -78]), cam([side * 9.6, 1.8, -76], [side * 24, 2.8, -86]), cam([side * 13.2, 1.8, -81.2], [side * 13.2, 2.1, -89]), ...S];
+    K = [cam(c.eye, c.target), cam([0, 1.8, Z], [side * 20, 2.6, -78]), cam([side * 9.6, 1.8, -76], [side * 24, 2.8, -86]), (flow() ? cam([side * 13.2, 2.2, -77.5], [side * 13.2, 0.6, -89]) : cam([side * 13.2, 1.8, -81.2], [side * 13.2, 2.1, -89])), ...S];
     P = ['', '', '', '', ...S.map((s) => s.id)];
     first = 3; t = 0; tt = first;
     lockScroll(true);
@@ -50,7 +53,7 @@
   }
   function finish() {
     wing = null; exiting = false;
-    root.classList.remove('in-wing'); delete root.dataset.wing;
+    root.classList.remove('in-wing', 'm-gallery'); delete root.dataset.wing;
     lockScroll(false);
   }
 
