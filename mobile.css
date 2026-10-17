@@ -114,3 +114,9 @@ html.m-flow .site-header{background:linear-gradient(180deg,#080809 0,#080809f0 7
 html.m-flow #content{transition:opacity .9s ease}
 html.m-flow body.at-entry #content{opacity:0;visibility:hidden}
 html.m-flow body.at-entry #speaker.needs-gesture::after{display:none}
+
+/* entrance: speaker button beside "Enter the Westside" */
+html.m-flow .entry-actions{gap:14px!important;flex-wrap:nowrap!important}
+html.m-flow #speaker.at-door{width:60px;height:60px;flex:0 0 60px;pointer-events:auto}
+html.m-flow #speaker.at-door svg{width:24px;height:24px}
+html.m-flow #speaker.at-door .spk-bars{display:none}

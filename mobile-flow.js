@@ -92,10 +92,21 @@
     requestAnimationFrame(tick);
   }
 
+  /* On the entrance screen the speaker sits beside "Enter the Westside"; after entering it goes back to the header. */
+  const speaker = $('#speaker'), home = speaker && speaker.parentElement, homeNext = speaker && speaker.nextElementSibling, enterBtn = $('#enter-button');
+  function placeSpeaker() {
+    if (!speaker || !enterBtn) return;
+    const atEntry = html.classList.contains('m-flow') && body.classList.contains('at-entry');
+    if (atEntry && speaker.parentElement !== enterBtn.parentElement) { enterBtn.after(speaker); speaker.classList.add('at-door'); }
+    else if (!atEntry && speaker.parentElement !== home) { home.insertBefore(speaker, homeNext); speaker.classList.remove('at-door'); }
+  }
+  new MutationObserver(placeSpeaker).observe(body, { attributes: true, attributeFilter: ['class'] });
+
   function apply() {
     const on = body.classList.contains('mobile');
     html.classList.toggle('m-flow', on);
     if (on) build();
+    placeSpeaker();
   }
   apply();
   addEventListener('resize', apply);
