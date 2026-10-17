@@ -32,7 +32,7 @@
   function enter(name) {
     const st = state();
     if (!st || st.phase !== 'explore' || wing || !D[name]) return;
-    wing = name; side = D[name].side; mainP = flow() ? 0.455 : st.current; exiting = false;
+    wing = name; side = D[name].side; mainP = st.current; exiting = false;
     if (flow()) root.classList.add('m-gallery');
     const c = M.sample(mainP);
     const S = stops(name);
