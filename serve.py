@@ -13,4 +13,7 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 print('Open http://127.0.0.1:%s  (Ctrl+C to stop)' % (sys.argv[1] if len(sys.argv) > 1 else 8877))
 import sys
 PORT = int(sys.argv[1]) if len(sys.argv) > 1 else 8877
-http.server.ThreadingHTTPServer(('127.0.0.1', PORT), NoCache).serve_forever()
+class Server(http.server.ThreadingHTTPServer):
+    request_queue_size = 128  # the default 5 refuses connections when a page loads many textures at once
+
+Server(('127.0.0.1', PORT), NoCache).serve_forever()

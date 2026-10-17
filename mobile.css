@@ -1,0 +1,32 @@
+/* Phone layout: cards sit between the header/HUD and the bottom controls, and scroll inside. */
+body.mobile .world-panel,body.mobile .world-panel.card{left:16px!important;top:86px!important;translate:0 0!important;width:calc(100vw - 56px)!important;max-height:calc(100svh - 218px)!important;overflow-x:hidden!important;overflow-y:auto!important;-webkit-overflow-scrolling:touch;padding-bottom:40px!important;-webkit-mask-image:linear-gradient(#000 calc(100% - 26px),transparent);mask-image:linear-gradient(#000 calc(100% - 26px),transparent)}
+html.in-gallery body.mobile .world-panel{top:148px!important;max-height:calc(100svh - 280px)!important}
+html.in-wing body.mobile .world-panel{top:122px!important;max-height:calc(100svh - 254px)!important}
+body.mobile .world-panel.gallery-panel{padding-bottom:0!important}
+body.mobile .world-panel.gallery-panel .ex{padding-bottom:30px}
+body.mobile #hero:after{display:none}
+
+/* hero */
+@media (max-width:900px){
+  #hero .cd-top{flex-wrap:wrap;gap:8px}
+  #hero .cd-top .eyebrow{white-space:nowrap}
+  #hero .panel-actions{gap:10px}
+  #hero .panel-actions button{flex:1 1 auto;justify-content:center}
+  .dk-tag{top:-4px}
+  .dk-info{gap:12px}
+  .dk-num b{font-size:32px}
+  .hero-marquee{margin-top:26px}
+  .mq-track span{font-size:12px}
+}
+@media (max-width:380px){
+  #hero h2.h-rev{font-size:30px!important}
+  .hero-stats b{font-size:28px}
+  .dk-nav button{width:36px;height:36px}
+}
+
+/* entry: the sound hint opens below the speaker instead of off the left edge */
+@media (max-width:700px){
+  #speaker.needs-gesture::after{right:auto;left:50%;top:calc(100% + 12px);transform:translateX(-50%)}
+}
+@media (max-width:440px){#hero h2.h-rev{font-size:31px!important}}
+@media (max-width:360px){#hero h2.h-rev{font-size:27px!important}}

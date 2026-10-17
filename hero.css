@@ -99,7 +99,7 @@
   .mq-track,#hero:after,.win .shine{animation:none!important}
 }
 .dk-stack:before{content:'';position:absolute;left:-6%;right:-2%;bottom:-8%;height:70%;background:radial-gradient(50% 50% at 45% 60%,#ff2a5540,transparent 70%);pointer-events:none}
-.reading-mode .world-panel.card,.fallback .world-panel.card,.mobile .world-panel.card{width:min(1240px,92vw)!important}
+.reading-mode .world-panel.card,.fallback .world-panel.card{width:min(1240px,92vw)!important}
 
 /* cards sit flush inside their wall frame: height follows the frame's aspect */
 body:not(.mobile):not(.reading-mode):not(.fallback) .world-panel[data-mount],
