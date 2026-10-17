@@ -96,3 +96,8 @@ html.m-flow .site-header{background:linear-gradient(180deg,#080809 0,#080809f0 7
 html.m-flow .m-rail .ex-top{flex-wrap:nowrap;gap:10px}
 html.m-flow .m-rail .ex-top small,html.m-flow .m-rail .ex-count{font-size:10px!important;letter-spacing:.1em!important;white-space:nowrap}
 html.m-flow .m-rail .ex-kind{font-size:10.5px!important;letter-spacing:.1em!important}
+
+/* entry: keep the page hidden behind the entrance screen, then fade it in */
+html.m-flow #content{transition:opacity .9s ease}
+html.m-flow body.at-entry #content{opacity:0;visibility:hidden}
+html.m-flow body.at-entry #speaker.needs-gesture::after{display:none}
