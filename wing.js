@@ -27,6 +27,7 @@
   }
 
   function enter(name) {
+    if (root.classList.contains('m-flow')) { const rail = document.getElementById('m-' + name); if (rail) rail.scrollIntoView({ behavior: 'smooth', block: 'start' }); return; }
     const st = state();
     if (!st || st.phase !== 'explore' || wing || !D[name]) return;
     wing = name; side = D[name].side; mainP = st.current; exiting = false;
