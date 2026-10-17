@@ -32,8 +32,8 @@
     wing = name; side = D[name].side; mainP = st.current; exiting = false;
     const c = M.sample(mainP);
     const S = stops(name);
-    K = [cam(c.eye, c.target), cam([0, 1.8, Z], [side * 20, 2.6, -78]), cam([side * 9.6, 1.8, -76], [side * 24, 2.8, -86]), ...S];
-    P = ['', '', '', ...S.map((s) => s.id)];
+    K = [cam(c.eye, c.target), cam([0, 1.8, Z], [side * 20, 2.6, -78]), cam([side * 9.6, 1.8, -76], [side * 24, 2.8, -86]), cam([side * 13.2, 1.8, -81.2], [side * 13.2, 2.1, -89]), ...S];
+    P = ['', '', '', '', ...S.map((s) => s.id)];
     first = 3; t = 0; tt = first;
     lockScroll(true);
     root.classList.add('in-wing'); root.dataset.wing = name;
@@ -215,8 +215,8 @@
     if (wing) {
       const lab = $('#chapter-label');
       if (lab && lab.textContent !== LABEL[wing]) lab.textContent = LABEL[wing];
-      const i = Math.max(0, Math.round(t) - first), n = K.length - first;
-      const txt = exiting ? 'Returning to the gallery' : i >= n - 1 ? 'End of the wing' : `${wing === 'portfolio' ? 'Project' : 'Service'} ${String(i + 1).padStart(2, '0')} / ${String(n - 1).padStart(2, '0')}`;
+      const i = Math.max(0, Math.round(t) - first - 1), n = K.length - first - 1;
+      const txt = exiting ? 'Returning to the gallery' : Math.round(t) <= first ? 'Tools we build with' : i >= n - 1 ? 'End of the wing' : `${wing === 'portfolio' ? 'Project' : 'Service'} ${String(i + 1).padStart(2, '0')} / ${String(n - 1).padStart(2, '0')}`;
       const h = $('.wing-hud-label');
       if (h.textContent !== txt) h.textContent = txt;
     }
