@@ -9,7 +9,7 @@
   const STOPS = [['hero', .18], ['who', .34], ['hub-services', .46], ['hub-portfolio', .50], ['testimonials', .62], ['numbers-b', .675], ['faq', .77], ['team', .885], ['contact', .975]];
   const START = 0.45;   // at scroll 0 the hero card's top sits at 55% of the screen
   const GAP = 0.85;     // walking distance between cards, in screen heights
-  let segs = [], total = 0, V = innerHeight, built = false;
+  let segs = [], total = 0, V = innerHeight, built = false, pending = null, pendingT = 0;
 
   const smooth = (t) => t * t * (3 - 2 * t);
   const cards = () => STOPS.map(([id, p]) => ({ el: document.getElementById(id), p })).filter((c) => c.el);
@@ -27,7 +27,9 @@
     const last = segs[segs.length - 1];
     total = last.start + last.h + 40 - START * V;
     body.style.height = Math.ceil(total + V) + 'px';
-    if (keep) scrollTo(0, segs[keep.i].start + keep.s * (V + segs[keep.i].h) - START * V);
+    const goTo = pending && segs.find((c) => c.el.id === pending);
+    if (goTo) scrollTo({ top: goTo.start, behavior: 'smooth' }); // a relayout must not cancel a menu jump in flight
+    else if (keep) scrollTo(0, segs[keep.i].start + keep.s * (V + segs[keep.i].h) - START * V);
     render();
   }
   function where(y) { // which card segment the scroll position is in, and how far through it
@@ -66,7 +68,11 @@
 
   window.WestsideMobile = {
     progress,
-    go(id) { const s = segs.find((c) => c.el.id === id); if (s) scrollTo({ top: s.start, behavior: 'smooth' }); },
+    go(id) {
+      const s = segs.find((c) => c.el.id === id); if (!s) return;
+      pending = id; clearTimeout(pendingT); pendingT = setTimeout(() => (pending = null), 2500);
+      scrollTo({ top: s.start, behavior: 'smooth' });
+    },
   };
 
   function build() {
