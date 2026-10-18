@@ -110,3 +110,6 @@
 }
 #hub-services .cd-lede{max-width:680px!important}
 #testimonials h2{font-size:52px!important}
+
+/* eight projects in the hero deck: windows past the third stay hidden */
+.win[data-pos="6"],.win[data-pos="7"]{z-index:3;opacity:0;transform:translate(20%,-44%) scale(.76) rotate(9deg)}
